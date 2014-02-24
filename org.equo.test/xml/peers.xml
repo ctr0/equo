@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<peer-schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../org.equo/xsd/ePeerSchema.xsd">
+	
+	<peer entity="Race" name="RACES">
+		<field name="CRACE" domain="CCODE" primary-key="true"/>
+		<field name="ARACE" domain="ANAME" />
+		<field name="DRACE" domain="DDESC" />
+		<field domain="FICON" />
+	</peer> 
+	
+	<peer entity="Profession" name="PROFESSIONS">
+		<field name="CPROF" domain="CCODE" primary-key="true" />
+		<field name="APROF" domain="ANAME" />
+		<field name="DPROF" domain="DDESC" />
+		<field domain="FICON" />
+	</peer>
+	
+	<peer entity="WeaponType" name="WEAPONTYPES">
+		<field domain="CWTYPE" primary-key="true" />
+		<field name="AWTYPE" domain="ANAME" />
+		<field name="DWTYPE" domain="DDESC" />
+		<field domain="NORDER" />
+	</peer>
+
+	<peer entity="Weapon" name="WEAPONS">
+		<field domain="CWEAPON" primary-key="true" />
+		<field name="AWEAPON" domain="ANAME" />
+		<field name="DWEAPON" domain="DDESC" />
+		<entity name="WeaponType" />
+		<field domain="NORDER" />
+	</peer>
+	
+	<peer entity="WeaponProf" name="WEAPONSPROF">
+		<entity name="Profession" primary-key="true" />
+		<entity name="Weapon" primary-key="true" />
+	</peer>
+	
+	<peer entity="SkillType" name="SKILLTYPES">
+		<field domain="CSTYPE" primary-key="true" />
+		<field name="ASTYPE" domain="ANAME" />
+		<field name="DSTYPE" domain="DDESC" />
+	</peer>
+	
+	<peer entity="SkillSubType" name="SKILLSUBTYPES">
+		<entity name="SkillType" primary-key="true" />
+		<field domain="CSSTYPE" primary-key="true"/>
+		<field name="ASSTYPE" domain="ANAME" />
+		<field name="DSSTYPE" domain="DDESC" />
+	</peer>
+	
+	<peer entity="Skill" name="SKILLS">
+		<field name="NSKILL" domain="NID" /> 
+		<entity name="Profession" primary-key="true" />
+		<field name="CSKILL" domain="CLONGCODE" primary-key="true" />
+		<field name="ASKILL" domain="ALONGNAME" />
+		<field name="DSKILL" domain="DLONGDESC" />
+		<entity name="SkillType" />
+		<entity name="SkillSubType" />
+		<entity name="Weapon" />
+		<field domain="CORDER" />
+		<field name="CMECHANIC" domain="CCODE" />
+		<field domain="ICHAIN" />
+		<field domain="NCD" />
+		<field domain="NCOST" />
+<!-- 		<index> -->
+<!-- 			<segment entity="Profession" asc="true" /> -->
+<!-- 			<segment entity="SkillType" asc="true" /> -->
+<!-- 			<segment entity="Weapon" asc="true" /> -->
+<!-- 		</index> -->
+<!-- 		<index> -->
+<!-- 			<segment entity="Profession" asc="true" /> -->
+<!-- 			<segment entity="SkillType" asc="true" /> -->
+<!-- 			<segment entity="SkillSubType" asc="true" /> -->
+<!-- 		</index> -->
+	</peer>
+	
+	<peer entity="Stat" name="STATS">
+		<field name="CSTAT" domain="CCODE" primary-key="true" />
+		<field name="ASTAT" domain="ANAME" />
+		<field domain="ISTAT" />
+		<field name="DSTAT" domain="DDESC" />
+		<field domain="FICON" />
+	</peer>
+
+	<peer entity="SkillStat" name="SKILLSTATS">
+		<entity name="Skill" primary-key="true" /> 
+		<entity name="Stat" primary-key="true" /> 
+		<field domain="NORDER" primary-key="true" /> 
+		<field name="ASSTAT" domain="ALONGNAME" />
+		<field name="DSSTAT" domain="DDESC" />
+		<field domain="NSECONDS" />
+		<field domain="NDAMAGE" />
+		<field domain="NAOE" />
+	</peer>
+
+</peer-schema>

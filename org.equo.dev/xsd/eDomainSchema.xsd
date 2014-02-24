@@ -1,0 +1,280 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+	<!-- Element list of domain -->
+	<xs:element name="domain-schema">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="domain" maxOccurs="unbounded" minOccurs="0" />
+			</xs:sequence>
+			<!-- <xs:attribute name="name" type="xs:string" use="optional"> -->
+			<!-- <xs:annotation> -->
+			<!-- <xs:documentation> -->
+			<!-- Name of domains file. This name is used in database -->
+			<!-- schema included domains. -->
+			<!-- </xs:documentation> -->
+			<!-- </xs:annotation> -->
+			<!-- </xs:attribute> -->
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Element domain -->
+	<xs:element name="domain">
+
+		<xs:annotation>
+			<xs:documentation>The domain tag ...</xs:documentation>
+		</xs:annotation>
+
+		<xs:complexType>
+
+			<xs:sequence>
+				<xs:element ref="possible-values" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="sequence" minOccurs="0" maxOccurs="1" />
+				<xs:element name="comment" type="xs:string" minOccurs="0"
+					maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							A long comment that extends the information
+							about the domain.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+
+			<xs:attribute name="name" use="required" type="xs:NCName">
+				<xs:annotation>
+					<xs:documentation>
+						Domain name
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+
+			<xs:attribute name="type" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						Field type (SQL type)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="VARCHAR">
+							<xs:annotation>
+								<xs:documentation>
+									Variable length character, requires "length".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="BIT">
+							<xs:annotation>
+								<xs:documentation>
+									Boolean type (Yes/No)
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="DECIMAL">
+							<xs:annotation>
+								<xs:documentation>
+									Decimal number, requires "length" and
+									"decimal"
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="TINYINT">
+							<xs:annotation>
+								<xs:documentation>
+									One byte integer number, does not require
+									"length" or "decimal"
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="SMALLINT">
+							<xs:annotation>
+								<xs:documentation>
+									Two bytes integer number, does not require
+									"length" or "decimal"
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="BIGINT">
+							<xs:annotation>
+								<xs:documentation>
+									Eight bytes integer number, does not require
+									"length" or "decimal".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="INTEGER">
+							<xs:annotation>
+								<xs:documentation>
+									Four bytes integer number, does not require
+									"length" or "decimal".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="FLOAT">
+							<xs:annotation>
+								<xs:documentation>
+									Four bytes floating point number, does not
+									require "length" or
+									"decimal".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="DOUBLE">
+							<xs:annotation>
+								<xs:documentation>
+									Eight bytes floating point number, does not
+									require "length" or
+									"decimal".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="DATE">
+							<xs:annotation>
+								<xs:documentation>
+									Date stamp, includes year, month and day.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="TIME">
+							<xs:annotation>
+								<xs:documentation>
+									Time stamp, includes hour, minute, second and
+									optionally
+									millisecond.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="TIMESTAMP">
+							<xs:annotation>
+								<xs:documentation>
+									Date and time stamp, includes year, month,
+									day, hour, minute,
+									second and optionally millisecond.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="CHAR">
+							<xs:annotation>
+								<xs:documentation>
+									Fixed length character, requires "length".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="LONGVARCHAR">
+							<xs:annotation>
+								<xs:documentation>
+									Huge variable length character, does not
+									require "length".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="BINARY">
+							<xs:annotation>
+								<xs:documentation>
+									Fixed length binary data, requires "length".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="VARBINARY">
+							<xs:annotation>
+								<xs:documentation>
+									Variable length binary data, requires
+									"length".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="LONGVARBINARY">
+							<xs:annotation>
+								<xs:documentation>
+									Huge variable length binary data, does not
+									require "length".
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+
+			<xs:attribute name="length" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation>
+						Field length.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+
+			<xs:attribute name="scale" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation>
+						Field decimals
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+
+			<xs:attribute name="nullable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+						Indicates if the field can be null. By default
+						only
+						primary and unique key fields in tables can not be null.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+
+			<xs:attribute name="default-value" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+						Default values examples are:
+						<br />
+						A number: 235.67
+						<br />
+						A string: Barcelona
+						<br />
+						A date: 20050410
+						<br />
+						A time: 230056
+						<br />
+						A time stamp: 20050410230056
+						<br />
+						A boolean: true
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+
+		</xs:complexType>
+
+	</xs:element>
+
+	<xs:element name="possible-values">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="possible-value" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="possible-value">
+		<xs:complexType>
+			<xs:attribute name="value" use="required" />
+			<xs:attribute name="name" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sequence">
+		<xs:complexType>
+			<xs:attribute name="initial-value" type="xs:nonNegativeInteger" />
+<!-- 			<xs:sequence> -->
+<!-- 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="segment" /> -->
+<!-- 			</xs:sequence> -->
+		</xs:complexType>
+	</xs:element>
+
+<!-- 	<xs:element name="segment"> -->
+<!-- 		<xs:complexType> -->
+<!-- 			<xs:attribute name="initial-value" type="xs:nonNegativeInteger" /> -->
+<!-- 		</xs:complexType> -->
+<!-- 	</xs:element> -->
+
+</xs:schema>
+      

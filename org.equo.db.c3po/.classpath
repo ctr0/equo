@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.equo"/>
+	<classpathentry exported="true" kind="lib" path="lib/c3p0-0.9.5-pre6/lib/c3p0-0.9.5-pre6.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/c3p0-0.9.5-pre6/lib/c3p0-oracle-thin-extras-0.9.5-pre6.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/c3p0-0.9.5-pre6/lib/mchange-commons-java-0.2.6.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

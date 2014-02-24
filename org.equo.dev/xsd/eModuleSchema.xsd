@@ -1,0 +1,60 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+	<!-- Element module -->
+	<xs:element name="module-schema">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="datasource" maxOccurs="unbounded" minOccurs="1" />
+				<xs:element ref="domain-resource" maxOccurs="unbounded" minOccurs="1" />
+				<xs:element ref="peer-resource" maxOccurs="unbounded" minOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="id" use="required" type="xs:NCName">
+				<xs:annotation>
+					<xs:documentation>
+						Module identifier
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="name" use="required" type="xs:NCName">
+				<xs:annotation>
+					<xs:documentation>
+						Module name
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="peer-resource">
+		<xs:complexType>
+			<xs:attribute name="resource" type="xs:string" use="required" />
+			<xs:attribute name="package" type="xs:NCName" use="required" />
+			<xs:attribute name="datasource" type="xs:NCName" use="required" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="domain-resource">
+		<xs:complexType>
+			<xs:attribute name="resource" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="datasource">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="property" maxOccurs="unbounded" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:NCName" use="required" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="property">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" type="xs:string" />
+			<xs:attribute name="value" use="required" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+	
+</xs:schema>
+	

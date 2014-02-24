@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module-schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../xsd/eModuleSchema.xsd"
+	id="TST" name="TEST">
+	
+	<datasource name="DS">
+		<property name="key1" value="value1" />
+		<property name="key2" value="value2" />
+	</datasource>
+	
+	<domain-resource resource="domains.xml"/>
+	
+	<peer-resource resource="peers.xml" datasource="DS" package="org.equo.test" />
+	
+	
+	
+</module-schema>

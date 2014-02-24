@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../org.equo/xsd/eDomainSchema.xsd">
+	
+	<!--
+		PREFIXES:
+		C	-	Code
+		A	-	Alias
+		D	-	Description
+		S	-	Short description
+		I	-	Boolean or restricted value (Y/N, Y/N/-, Y/N/NA, etc.) 
+		F	-	File path
+		N	- 	Integer
+		M	-	Decimal
+		T	-	Date/Time 
+	-->
+	
+	
+	<domain name="CCODE" model="Code" type="VARCHAR" length="16" />
+	<domain name="ANAME" model="Name" type="VARCHAR" length="16" nullable="false" />
+	<domain name="DDESC" model="Description" type="VARCHAR" length="128" />
+	<domain name="FICON" model="Icon" type="VARCHAR" length="64" />
+	<domain name="CLONGCODE" model="Code" type="VARCHAR" length="32" />
+	<domain name="ALONGNAME" model="Name" type="VARCHAR" length="32" nullable="false" />
+	<domain name="DLONGDESC" model="Description" type="VARCHAR" length="256" />
+	
+	<domain name="NID" type="INTEGER" length="8">
+		<sequence initial-value="10000" />
+	</domain>
+	
+	<domain name="NINT8" type="INTEGER" />
+	<domain name="NORDER" type="SMALLINT" />
+	<domain name="NSECONDS" type="SMALLINT" />
+	<domain name="NCD" type="SMALLINT" />
+	<domain name="NDAMAGE" type="SMALLINT" />
+	<domain name="NAOE" type="SMALLINT" />
+	<domain name="NCOST" type="SMALLINT" />
+	
+	<domain name="CORDER" type="VARCHAR" length="8" />
+	
+	<domain name="CWEAPON" type="VARCHAR" length="2" model="Weapon">
+		<possible-values>
+			<possible-value value="AX" name="Axe" />
+			<possible-value value="DA" name="Dagger" />
+			<possible-value value="MA" name="Mace" />
+			<possible-value value="PI" name="Pistol" />
+			<possible-value value="SC" name="Scepter" />
+			<possible-value value="SW" name="Sword" />
+			<possible-value value="FO" name="Focus" />
+			<possible-value value="SH" name="Shield" />
+			<possible-value value="TO" name="Torch" />
+			<possible-value value="WA" name="Warhorn" />
+			<possible-value value="GS" name="Greatsword" />
+			<possible-value value="HA" name="Hammer" />
+			<possible-value value="LB" name="Longbow" />
+			<possible-value value="RI" name="Rifle" />
+			<possible-value value="SB" name="Shortbow" />
+			<possible-value value="ST" name="Staff" />
+			<possible-value value="HG" name="HarpoonGun" />
+			<possible-value value="SP" name="Spear" />
+			<possible-value value="TR" name="Trident" />
+		</possible-values>
+	</domain>
+	
+	<domain name="CWTYPE" type="VARCHAR" length="2" model="WeaponType">
+		<possible-values>
+			<possible-value value="2H" name="TwoHanded" />
+			<possible-value value="1H" name="OneHand" />
+			<possible-value value="MH" name="MainHand" />
+			<possible-value value="OH" name="OffHand" />
+			<possible-value value="AQ" name="Aquatic" />
+		</possible-values>
+	</domain>
+	
+	<domain name="CSTYPE" type="VARCHAR" length="1" model="SkillType" >
+		<possible-values>
+			<possible-value value="W" name="Weapon" />
+			<possible-value value="M" name="Mechanic" />
+			<possible-value value="P" name="Pet" />
+			<possible-value value="H" name="Healing" />
+			<possible-value value="U" name="Utility" />
+			<possible-value value="E" name="Elite" />
+			<possible-value value="D" name="Downed" />
+		</possible-values>
+	</domain>
+	
+	<domain name="CSSTYPE" type="VARCHAR" length="16" model="SkillSubType" >
+		<!-- possible values -->
+	</domain>
+	
+	<domain name="ISTAT" type="VARCHAR" length="1" model="StatType">
+		<possible-values>
+			<possible-value value="B" name="Boon" />
+			<possible-value value="C" name="Condition" />
+			<possible-value value="E" name="Effect" />
+		</possible-values>
+	</domain>
+	
+	<domain name="ICHAIN" type="VARCHAR" length="2" model="ChainType">
+		<possible-values>
+			<possible-value value="RC" name="Root Chain Skill" />
+			<possible-value value="CC" name="Chain Skill" />
+			<possible-value value="RS" name="Root Sequence Skill" />
+			<possible-value value="CC" name="Sequence Skill" />
+			<possible-value value="RF" name="Transformation Skill" />
+			<possible-value value="CF" name="Form Skill" />
+		</possible-values>
+	</domain>
+	
+	
+	<domain name="CCOMBO" type="VARCHAR" length="4" />
+	
+	
+</domain-schema>

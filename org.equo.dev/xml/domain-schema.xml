@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../xsd/eDomainSchema.xsd">
+	
+	<domain name="NAME" type="VARCHAR" length="10" scale="0" default-value="" nullable="false">
+		<comment></comment>
+		<possible-values>
+			<possible-value value="" name=""/>
+		</possible-values>
+	</domain>
+	
+</domain-schema>

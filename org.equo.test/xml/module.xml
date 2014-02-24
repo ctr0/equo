@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module-schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../org.equo/xsd/eModuleSchema.xsd"
+	id="GW2DB" name="GuildWars2Database">
+
+	<datasource name="MASTER">
+		<property name="driver" value="com.mysql.jdbc.Driver"/>
+	</datasource>
+
+	<domain-resource resource="domains.xml" />
+	
+	<peer-resource resource="peers.xml" package="net.orc.gw2" datasource="MASTER" />
+	
+</module-schema>
+
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<peer-schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../xsd/ePeerSchema.xsd">
+
+	<peer entity="Person" name="PERSONS">
+		<comment></comment>
+		<field name="NAME" domain="NAME" />
+		<index>
+			<segment field="NAME" asc="true" entity=""/>
+		</index>
+	</peer>
+	
+</peer-schema>
