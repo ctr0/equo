@@ -38,13 +38,11 @@ public class PeerTable<E extends Entity<E>> extends Peer<E> {
 	
 	@Override
 	public String getAlias() {
-		// TODO Auto-generated method stub
-		return null;
+		return table.getAlias();
 	}
 
 	@Override
 	public IColumn[] getKeys() {
-		// TODO Auto-generated method stub
 		return table.getKeys();
 	}
 	

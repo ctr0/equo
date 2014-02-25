@@ -42,14 +42,10 @@ public class EntityPeer<E extends IRecord> extends Peer<E> {
 		this.columns = map;
 	}
 	
-	protected void setKey(int... indexes) {
-//		if (indexes == null) throw new IllegalArgumentException();
-//		IColumn[] k = new Column[indexes.length];
-//		int i = 0;
-//		for (int index : indexes) {
-//			k[i++] = this.columns[index];
-//		}
-//		this.key = k;
+	protected void setKey(IColumn... columns) {
+		if (columns == null || columns.length == 0) throw new IllegalArgumentException();
+		// TODO validate columns?
+		this.key = columns;
 	}
 	
 	@Override

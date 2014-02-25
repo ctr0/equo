@@ -9,11 +9,13 @@ import java.util.Map;
 
 public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements IForeign  {
 
-	IForeign parent;
+	Table<E, ?> parent;
 	int order = -1;
 	int index = -1;
 	String alias;
 	Criteria<E> criteria;
+	
+	private IColumn[] keys;
 	
 	private Map<String, TableColumn<E, ?>> columns;
 	private Map<String, Table<E, ?>> foreigns;
@@ -43,7 +45,7 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements
 		this.foreigns = new LinkedHashMap<>(4);
 	}
 	
-	public IForeign getParent() {
+	public Table<E, ?> getParent() {
 		return parent;
 	}
 	
@@ -79,8 +81,7 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements
 
 	@Override
 	public IColumn[] getKeys() {
-		// TODO Auto-generated method stub
-		return null;
+		return keys;
 	}
 
 	@Override
