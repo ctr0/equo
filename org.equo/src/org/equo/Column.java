@@ -137,6 +137,10 @@ public class Column<E extends IRecord, T> implements IColumn {
 	public Function<E, T> MAX() {
 		return new Function<E, T>(this, Function.FUNC_MAX);
 	}
+	
+	public Function<E, T> MIN() {
+		return new Function<E, T>(this, Function.FUNC_MIN);
+	}
 
 	@Override
 	public String toString() {

@@ -3,7 +3,7 @@ package org.equo;
 
 public class TableColumn<E extends Entity<E>, T> extends Column<E, T> {
 	
-	IForeign table;
+	Table<E, ?> table;
 	
 	public TableColumn(Table<E, ?> table, Domain domain, int index) {
 		super(table.getName(), new Field(table.getName(), domain), index);
@@ -20,7 +20,7 @@ public class TableColumn<E extends Entity<E>, T> extends Column<E, T> {
 		this.table = table;
 	}
 	
-	public IForeign getTable() {
+	public Table<E, ?> getTable() {
 		return table;
 	}
 
@@ -33,7 +33,7 @@ public class TableColumn<E extends Entity<E>, T> extends Column<E, T> {
 		return table.getParent() != null;
 	}
 
-	public IForeign getParent() {
+	public Table<E, ?> getParent() {
 		return table.getParent();
 	}
 	

@@ -48,7 +48,7 @@ public class Order {
 		return segments;
 	}
 	
-	public boolean isEmpty() {
-		return segments.size() == 0;
+	public int getSegmentCount() {
+		return segments.size();
 	}
 }

@@ -2,7 +2,9 @@ package org.equo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.equo.util.Iterator;
 
@@ -83,6 +85,15 @@ public final class Select<E extends IRecord> implements ICommand {
 //		}
 //		return this;
 //	}
+	
+	protected static void checkDuplicatedColumns(IColumn[] columns) {
+		Map<Field, IColumn> map = new HashMap<Field, IColumn>(columns.length);
+		for (IColumn column : columns) {
+			if (map.put(column.getField(), null) != null) {
+				throw new IllegalArgumentException("Duplicated column " + column);
+			}
+		}
+	}
 	
 	void setJoins(Collection<Join> joins) {
 		this.joins = joins;

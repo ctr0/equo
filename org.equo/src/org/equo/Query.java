@@ -1,6 +1,7 @@
 package org.equo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,27 @@ public class Query<E extends Entity<E>> {
 	}
 
 	public Query(PeerTable<E> peer, TableColumn<E, ?>[] columns) {
-		// TODO Auto-generated constructor stub
+		Map<Field, IColumn> map = new HashMap<Field, IColumn>(columns.length);
+		Map<String, Join> joins = new LinkedHashMap<>(8);
+		for (TableColumn<E, ?> column : columns) {
+			if (map.put(column.getField(), null) != null) {
+				throw new IllegalArgumentException("Duplicated column " + column);
+			}
+			if (column.isForeign()) {
+				Table<E, ?> table = column.getTable();
+				Table<E, ?> parent = peer.getTable();
+				String[] foreignPath = table.getForeignPath();
+				for (int i = 1; i < foreignPath.length; i++) {
+					String alias = foreignPath[i];
+					Table<E, ?> foreign = parent.getOrCreateForeign(alias);
+					Join join = new Join(true, parent, foreign, foreign.getCriteria());
+					joins.put(table.getAlias(), join); // alias != table.getAlias()
+					parent = foreign;
+				}
+			}
+		}
+		select = new Select<E>(peer, map.values().toArray(new IColumn[map.size()]));
+		select.setJoins(joins.values());
 	}
 
 	public Query(PeerTable<E> peer, Table<E, ?>[] tables) {
@@ -36,14 +57,14 @@ public class Query<E extends Entity<E>> {
 				for (IColumn column : table.getColumns()) {
 					columns.add(column);
 				}
-				Table<E, ?> t = peer.getTable();
+				Table<E, ?> parent = peer.getTable();
 				String[] foreignPath = table.getForeignPath();
 				for (int i = 1; i < foreignPath.length; i++) {
 					String alias = foreignPath[i];
-					Table<E, ?> foreign = t.getOrCreateForeign(alias);
-					Join join = new Join(true, t, foreign, foreign.getCriteria());
+					Table<E, ?> foreign = parent.getOrCreateForeign(alias);
+					Join join = new Join(true, parent, foreign, foreign.getCriteria());
 					joins.put(table.getAlias(), join); // alias != table.getAlias()
-					
+					parent = foreign;
 				}
 			}
 		}
