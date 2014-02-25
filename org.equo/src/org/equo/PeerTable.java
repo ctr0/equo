@@ -69,9 +69,10 @@ public class PeerTable<E extends Entity<E>> extends Peer<E> {
 		return table.getForeign(alias);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Table<E, ?>[] getForeigns() {
-		// TODO do not delegate to table
-		return null;
+		Collection<Table<E, ?>> foreigns = table.getForeigns0();
+		return foreigns.toArray(new Table[foreigns.size()]);
 	}
 	
 	@Override

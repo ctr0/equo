@@ -112,6 +112,10 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements
 		return foreigns.get(alias);
 	}
 	
+	Collection<Table<E, ?>> getForeigns0() {
+		return foreigns.values();
+	}
+	
 	@SuppressWarnings("unchecked")
 	final Table<E, ?> getOrCreateForeign(String alias) {
 		Table<E, ?> foreign = foreigns.get(alias);
