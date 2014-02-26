@@ -90,7 +90,7 @@ public final class Select<E extends IEntity> implements ICommand {
 	protected static void checkDuplicatedFields(IColumn[] columns) {
 		Map<Field, IColumn> map = new HashMap<Field, IColumn>(columns.length);
 		for (IColumn column : columns) {
-			if (map.put(column.getField(), null) != null) {
+			if (map.put(column.getField(), column) != null) {
 				throw new IllegalArgumentException("Duplicated column " + column);
 			}
 		}
@@ -189,6 +189,7 @@ public final class Select<E extends IEntity> implements ICommand {
 	}
 	
 	public Select<E> orderBy(Order order) {
+		// XXX ...
 		orderBy = order;
 		return this;
 	}
@@ -234,7 +235,9 @@ public final class Select<E extends IEntity> implements ICommand {
 		if (groupBySize > 0) {
 			visitor.visitGroupBy(groupBy.toArray(new Column[groupBySize]));
 		}
-		visitor.visitOrderBy(orderBy);
+		if (orderBy.getSegmentCount() > 0) {
+			visitor.visitOrderBy(orderBy);
+		}
 	}
 	
 	public static final <E extends IEntity> Select<E> wrap(E e) {

@@ -1,7 +1,6 @@
 package org.equo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,12 +21,8 @@ public class Query<E extends Entity<E>> {
 	}
 
 	public Query(PeerTable<E> peer, Column<E, ?>[] columns) {
-		Map<Field, IColumn> map = new HashMap<Field, IColumn>(columns.length);
 		Map<String, Join> joins = new LinkedHashMap<>(8);
 		for (Column<E, ?> column : columns) {
-			if (map.put(column.getField(), null) != null) {
-				throw new IllegalArgumentException("Duplicated column " + column);
-			}
 			if (column.isForeign()) {
 				ITable table = column.getTable();
 				Table<E, ?> parent = peer.getTable();
@@ -41,7 +36,7 @@ public class Query<E extends Entity<E>> {
 				}
 			}
 		}
-		select = new Select<E>(peer, map.values().toArray(new IColumn[map.size()]));
+		select = new Select<E>(peer, columns);
 		select.setJoins(joins.values());
 	}
 

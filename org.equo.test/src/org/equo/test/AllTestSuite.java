@@ -16,10 +16,11 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	TestPeerBuilder.class, 
-	TestCustomEntities.class,
-	TestGeneratedEntities.class,
-	TestSelect.class
+//	TestPeerBuilder.class, 
+//	TestCustomEntities.class,
+//	TestGeneratedEntities.class,
+	TestSelect.class,
+//	TestFunctions.class
 })
 public class AllTestSuite {
 	

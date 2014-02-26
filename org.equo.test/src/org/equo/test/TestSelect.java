@@ -16,13 +16,18 @@ public class TestSelect extends BaseTest {
 
 		PeerTable<WeaponsProf> peerWp = getSession().getPeer(WeaponsProf.class);
 		
-		peerWp.getDatasource().synchronize(peerWp);
+//		peerWp.getDatasource().synchronize(peerWp);
+		
+//		WeaponsProf e = peerWp.createEntity();
+//		e.setObject(WeaponsProf.WEAPONSPROF().CPROF, "WAR");
+//		e.setObject(WeaponsProf.WEAPONSPROF().CWEAPON, "SWD");
+//		e.insert();
 		
 		Query<WeaponsProf> select = peerWp.select(WeaponsProf.WEAPONSPROF().PROFESSIONS());
 		List<WeaponsProf> list = select.list();
 		for (WeaponsProf wp : list) {
-			String cprof = wp.getObject(WeaponsProf.WEAPONSPROF().CPROF);
-			System.out.println("CPROF: " + cprof);
+			String nint = wp.getObject(WeaponsProf.WEAPONSPROF().PROFESSIONS().NINT);
+			System.out.println("CPROF int: " + nint);
 		}
 		System.out.println("END");
 	}

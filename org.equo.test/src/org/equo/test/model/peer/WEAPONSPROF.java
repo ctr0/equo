@@ -3,8 +3,8 @@ package org.equo.test.model.peer;
 import javax.annotation.Generated;
 
 import org.equo.Column;
-import org.equo.Table;
 import org.equo.Entity;
+import org.equo.Table;
 import org.equo.test.model.WeaponsProf;
 
 @Generated("org.equo.gen.ModelGenerator")
@@ -18,6 +18,7 @@ public class WEAPONSPROF<E extends Entity<E>> extends Table<E, WeaponsProf> {
 		CPROF = Column.createColumn(this, "CPROF", Domains.CCODE, 0);
 		CWEAPON = Column.createColumn(this, "CWEAPON", Domains.CCODE, 1);
 		setColumns(CPROF, CWEAPON);
+		setKeys(CPROF, CWEAPON);
 	}
 
 	@Override

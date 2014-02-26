@@ -44,10 +44,11 @@ public class Entity<E extends Entity<E>> extends AbstractEntity<E> {
 			if (i == size) {
 				path = Arrays.copyOf(path, size*= 2);
 			}
-		} while ((t = t.getParent()) != null);
+			t = t.getParent();
+		} while (t.getParent() != null);
 		
 		Entity<?> f  = this;
-		for (int j = i - 1; j > 0; j--) {
+		for (int j = i - 1; j >= 0; j--) {
 			f = f.foreigns[path[j]];
 			if (f == null) {
 				throw new IllegalArgumentException("Unbound foreign " + "TODO");

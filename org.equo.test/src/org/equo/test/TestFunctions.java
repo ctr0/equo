@@ -18,7 +18,8 @@ public class TestFunctions extends BaseTest {
 		
 		Query<Profession> select = peer.select(Profession.PROFESSIONS().CPROF.MIN());
 		Profession first = select.first();
-		System.out.println("MinProf: " + first);
+		System.out.println("MinProf: " + 
+				first.getObject(Profession.PROFESSIONS().CPROF));
 	}
 
 }

@@ -4,9 +4,9 @@ package org.equo;
 
 public interface IColumn {
 	
-	public static final int NO_FUNC = 0;
-	public static final int FUNC_MAX = 1;
-	public static final int FUNC_MIN = 2;
+	public static final int NO_FUNC = -1;
+	public static final int FUNC_MAX = 0;
+	public static final int FUNC_MIN = 1;
 	
 	public String getName();
 	

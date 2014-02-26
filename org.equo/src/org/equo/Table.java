@@ -30,6 +30,10 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> extends IT
 		this.parent = parent;
 		this.alias = createAlias(alias);
 		this.foreigns = new LinkedHashMap<>(4);
+		if (parent != null) {
+			this.index = parent.foreigns.size();
+			parent.foreigns.put(getAlias(), this);
+		}
 	}
 
 	public Table(Table<E, ?> parent, Criteria<E> criteria) {
@@ -105,6 +109,7 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> extends IT
 		this.columns = map;
 	}
 	
+	@SafeVarargs
 	protected final void setKeys(Column<E, ?>... keys) {
 		this.keys = keys;
 	}
@@ -140,6 +145,7 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> extends IT
 	
 	protected void setForeign(Table<E, ?> foreign, Criteria<E> criteria) {
 		foreign.criteria = criteria;
+		// Not needed, aldeady put in constructor...
 		foreigns.put(foreign.getAlias(), foreign);
 	}
 	
