@@ -21,7 +21,7 @@ public class BoneCP implements ConnectionPool {
 	public void initialize(DatasourceInfo info) {
 		String driverClassName = info.getRequiredProperty(DRIVER_CLASS_NAME);
 		try {
-			Class.forName(DRIVER_CLASS_NAME);
+			Class.forName(driverClassName);
 		} catch (Exception e) {
 			throw new IllegalStateException("Cannot load driver " + driverClassName);
 		}
