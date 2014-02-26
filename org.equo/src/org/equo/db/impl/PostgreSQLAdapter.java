@@ -1,8 +1,5 @@
 package org.equo.db.impl;
 
-import org.equo.Field;
-import org.equo.IColumn;
-import org.equo.ITable;
 import org.equo.db.DefaultCommandAdapter;
 
 public class PostgreSQLAdapter extends DefaultCommandAdapter {
@@ -12,19 +9,9 @@ public class PostgreSQLAdapter extends DefaultCommandAdapter {
 		return new PostgreSQLAdapter();
 	}
 
-	protected void visitIdentifier(ITable peer) {
+	protected void visitIdentifier(String id) {
 		builder.append('\"');
-		builder.append(peer.getName());
-		builder.append('\"');
-	}
-	
-	protected void visitIdentifier(IColumn column) {
-		Field field = column.getField();
-		builder.append('\"');
-		builder.append(field.getTable());
-		builder.append("\".\"");
-		builder.append('.');
-		builder.append(field.getName());
+		builder.append(id);
 		builder.append('\"');
 	}
 

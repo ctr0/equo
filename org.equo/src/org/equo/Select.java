@@ -47,6 +47,7 @@ public final class Select<E extends IEntity> implements ICommand {
 	public Select(Peer<E> peer, IColumn... columns) {
 		this.peer = peer;
 		this.columns = columns;
+		checkDuplicatedFields(columns);
 	}
 	
 //	protected Select(View<E> view, IColumn... columns) {
@@ -86,7 +87,7 @@ public final class Select<E extends IEntity> implements ICommand {
 //		return this;
 //	}
 	
-	protected static void checkDuplicatedColumns(IColumn[] columns) {
+	protected static void checkDuplicatedFields(IColumn[] columns) {
 		Map<Field, IColumn> map = new HashMap<Field, IColumn>(columns.length);
 		for (IColumn column : columns) {
 			if (map.put(column.getField(), null) != null) {

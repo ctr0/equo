@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.equo.Condition;
+import org.equo.Condition.Operator;
 import org.equo.CriteriaVisitor;
 import org.equo.DatasourceException;
 import org.equo.Domain;
 import org.equo.Field;
 import org.equo.IColumn;
+import org.equo.ICommand.CommandVisitor;
 import org.equo.ICriteria;
 import org.equo.ITable;
 import org.equo.Order;
 import org.equo.Segment;
 import org.equo.Types;
-import org.equo.Condition.Operator;
-import org.equo.ICommand.CommandVisitor;
 import org.equo.Update.Set;
 
 public class DefaultCommandAdapter implements CommandBuilder, CommandVisitor, CriteriaVisitor {
@@ -35,34 +35,33 @@ public class DefaultCommandAdapter implements CommandBuilder, CommandVisitor, Cr
 		if (columns == null || columns.length == 0) {
 			b.append('*'); // Unsafe
 		} else {
-			visitField(columns[0]);
+			visitSelectColumn(columns[0]);
 			for (int i = 1; i < columns.length; i++) {
 				b.append(", ");
-				visitField(columns[i]);
+				visitSelectColumn(columns[i]);
 			}
 		}
 	}
 
 	
-	public void visitField(IColumn column) {
-		visitIdentifier(column);
+	public void visitSelectColumn(IColumn column) {
+		if (column.isFunction()) {
+			switch (column.getFunction()) {
+			case IColumn.FUNC_MAX:	builder.append("MAX(");		break;
+			case IColumn.FUNC_MIN:	builder.append("MIN(");		break;
+			default: 
+				throw new RuntimeException("Unknown column function code " + column.getFunction() + " for column " + column);
+			}
+			visitIdentifier(column);
+			builder.append(')');
+		} else {
+			visitIdentifier(column);
+		}
+		if (column.getAlias() != null) {
+			builder.append(" AS ");
+			visitIdentifier(column.getAlias());
+		}
 	}
-
-//	/* (non-Javadoc)
-//	 * @see org.ctro.jsql.FieldVisitor#visitField(org.ctro.jsql.ViewField)
-//	 */
-//	@Override
-//	public void visitField(ViewField field) {
-//		StringBuilder b = builder;
-//		switch(field.getFunction()) {
-//		case ViewField.COUNT: b.append("COUNT("); break;
-//		case ViewField.SUM: b.append("SUM("); break;
-//		case ViewField.MIN: b.append("MIN("); break;
-//		case ViewField.MAX: b.append("MAX("); break;
-//		}
-//		visitIdentifier(field);
-//		b.append(')');
-//	}
 
 	@Override
 	public void visitUpdate(ITable peer) throws DatasourceException {
@@ -239,19 +238,18 @@ public class DefaultCommandAdapter implements CommandBuilder, CommandVisitor, Cr
 	}
 	
 	protected void visitIdentifier(ITable peer) {
-//		builder.append('\"');
-		builder.append(peer.getName());
-//		builder.append('\"');
+		visitIdentifier(peer.getName());
 	}
 	
 	protected void visitIdentifier(IColumn column) {
 		Field field = column.getField();
-		//builder.append('\"');
-		builder.append(field.getTable());
-		//builder.append("\".\"");
-			builder.append('.');
-		builder.append(field.getName());
-		//builder.append('\"');
+		visitIdentifier(field.getTable());
+		builder.append('.');
+		visitIdentifier(field.getName());
+	}
+	
+	protected void visitIdentifier(String id) {
+		builder.append(id);
 	}
 
 	@Override

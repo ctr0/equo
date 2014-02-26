@@ -62,6 +62,16 @@ public class Column<E extends IEntity, T> implements IColumn {
 	}
 
 	@Override
+	public boolean isFunction() {
+		return getFunction()  != NO_FUNC;
+	}
+
+	@Override
+	public int getFunction() {
+		return -1;
+	}
+
+	@Override
 	public Column<E, T> as(String alias) {
 		return new Column<E, T>(this) {
 			
@@ -154,12 +164,22 @@ public class Column<E extends IEntity, T> implements IColumn {
 //		return new SetField<E, T>(this, value);
 //	}
 	
-	public Function<E, T> MAX() {
-		return new Function<E, T>(this, Function.FUNC_MAX);
+	public Column<E, T> MAX() {
+		return new Column<E, T>(this) {
+			@Override
+			public int getFunction() {
+				return FUNC_MAX;
+			}
+		};
 	}
 	
-	public Function<E, T> MIN() {
-		return new Function<E, T>(this, Function.FUNC_MIN);
+	public Column<E, T> MIN() {
+		return new Column<E, T>(this) {
+			@Override
+			public int getFunction() {
+				return FUNC_MIN;
+			}
+		};
 	}
 
 	@Override

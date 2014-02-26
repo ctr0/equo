@@ -7,18 +7,17 @@ package org.equo;
  * @author j0rd1
  *
  */
+@SuppressWarnings("unchecked")
 public final class Record extends IEntity {
 	
 	public Record(Peer<Record> peer) {
 		super(peer);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T> T getObject(IColumn column) {
 		return (T) getObject(checkColumn(column));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T> T getObject(Column<? extends IEntity, T> column) {
 		return (T) getObject(checkColumn(column));
 	}
