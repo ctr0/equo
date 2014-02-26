@@ -3,7 +3,7 @@ package org.equo;
 
 
 
-public abstract class AbstractEntity<E extends AbstractEntity<E>> extends IRecord {
+public abstract class AbstractEntity<E extends AbstractEntity<E>> extends IEntity {
 
 	protected AbstractEntity(Peer<E> peer) {
 		super(peer);
@@ -17,7 +17,7 @@ public abstract class AbstractEntity<E extends AbstractEntity<E>> extends IRecor
 		throw new IllegalArgumentException("Illegal column " + column);
 	}
 	
-	public <T> void setObject(Column<? extends IRecord, T> column, T value) {
+	public <T> void setObject(Column<? extends IEntity, T> column, T value) {
 		if (peer == column.getTable()) {
 			setObject(column.getIndex(), checkType(column, value));
 		}

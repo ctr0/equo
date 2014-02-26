@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class Insert<E extends IRecord> implements ICommand {
+public class Insert<E extends IEntity> implements ICommand {
 	
-	public static final <E extends IRecord> Insert<E> insert(Peer<E> master) {
+	public static final <E extends IEntity> Insert<E> insert(Peer<E> master) {
 		return new Insert<E>(master);
 	}
 	
@@ -52,7 +52,7 @@ public class Insert<E extends IRecord> implements ICommand {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static final <E extends IRecord> Insert<E> wrap(E e) {
+	public static final <E extends IEntity> Insert<E> wrap(E e) {
 		return (Insert<E>) new Insert<>(e.getPeer(), e.values);
 	}
 

@@ -2,7 +2,7 @@ package org.equo;
 
 
 
-public class View<E extends IRecord> extends EntityPeer<E> {
+public class View<E extends IEntity> extends EntityPeer<E> {
 	
 	View(Datasource ds) {
 		super(ds, null, null);

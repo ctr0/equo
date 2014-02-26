@@ -8,18 +8,18 @@ import java.util.Map;
 
 import org.equo.util.Iterator;
 
-public final class Select<E extends IRecord> implements ICommand {
+public final class Select<E extends IEntity> implements ICommand {
 	
-	public static final <E extends IRecord> Select<E> selectFrom(Peer<E> master) {
+	public static final <E extends IEntity> Select<E> selectFrom(Peer<E> master) {
 		return new Select<E>(master, master.getColumns());
 	}
 	
 	@SafeVarargs
-	public static final <E extends IRecord> Select<E> selectFrom(Peer<E> master, Column<E, ?>... columns) {
+	public static final <E extends IEntity> Select<E> selectFrom(Peer<E> master, Column<E, ?>... columns) {
 		return new Select<E>(master, columns);
 	}
 	
-	public static final Select<Record> selectFrom(Peer<? extends IRecord> master, IColumn... columns) {
+	public static final Select<Record> selectFrom(Peer<? extends IEntity> master, IColumn... columns) {
 		return new Select<Record>(
 			new View<Record>(master.getDatasource(), master.getName(), Record.class, columns),
 			columns
@@ -236,7 +236,7 @@ public final class Select<E extends IRecord> implements ICommand {
 		visitor.visitOrderBy(orderBy);
 	}
 	
-	public static final <E extends IRecord> Select<E> wrap(E e) {
+	public static final <E extends IEntity> Select<E> wrap(E e) {
 		@SuppressWarnings("unchecked")
 		Peer<E> peer = (Peer<E>) e.getPeer();
 		Select<E> select = new Select<E>(peer, peer.getKeys());

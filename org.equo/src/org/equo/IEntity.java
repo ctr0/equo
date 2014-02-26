@@ -6,15 +6,15 @@ import org.equo.util.BitArray;
 
 
 
-public abstract class IRecord {
+public abstract class IEntity {
 
 	protected static final Object UNBOUND = new Object();
 	
-	final Peer<? extends IRecord> peer;
+	final Peer<? extends IEntity> peer;
 	Object[] values;
 	final BitArray dirty;
 	
-	protected IRecord(Peer<? extends IRecord> peer) {
+	protected IEntity(Peer<? extends IEntity> peer) {
 		this.peer = peer;
 		int length = peer.getColumnsCount();
 		this.dirty = BitArray.create(length);

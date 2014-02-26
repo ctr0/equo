@@ -2,9 +2,9 @@ package org.equo;
 
 import org.equo.Condition.Operator;
 
-public class Column<E extends IRecord, T> implements IColumn {
+public class Column<E extends IEntity, T> implements IColumn {
 	
-	public static <E extends IRecord, T> Column<E, T> createColumn(ITable table, Field field, int index) {
+	public static <E extends IEntity, T> Column<E, T> createColumn(ITable table, Field field, int index) {
 		return new Column<>(table, field, index);
 	}
 	

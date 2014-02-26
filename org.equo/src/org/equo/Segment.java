@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Segment<E extends IRecord> implements Criteria<E> {
+public class Segment<E extends IEntity> implements Criteria<E> {
 
 	private List<ICriteria> conditions;
 	private boolean and;

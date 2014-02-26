@@ -7,9 +7,9 @@ import org.equo.Column;
 import org.equo.DatasourceException;
 import org.equo.Peer;
 import org.equo.IColumn;
-import org.equo.IRecord;
+import org.equo.IEntity;
 
-public class RecordSet<E extends IRecord> implements AutoCloseable {
+public class RecordSet<E extends IEntity> implements AutoCloseable {
 
 	private ResultContext context;
 	
@@ -34,7 +34,7 @@ public class RecordSet<E extends IRecord> implements AutoCloseable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> T getObject(Column<? extends IRecord, T> column) {
+	public <T> T getObject(Column<? extends IEntity, T> column) {
 		try {
 			return (T) rs.getObject(checkColumn(column) + 1);
 		} catch (SQLException e) {

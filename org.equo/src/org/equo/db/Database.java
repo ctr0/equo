@@ -17,7 +17,7 @@ import org.equo.DatasourceInfo;
 import org.equo.IColumn;
 import org.equo.ICommand;
 import org.equo.ITable;
-import org.equo.IRecord;
+import org.equo.IEntity;
 import org.equo.Select;
 import org.equo.util.Iterator;
 
@@ -88,7 +88,7 @@ public class Database extends Datasource {
 	}
 	
 	@Override
-	public final <E extends IRecord> Iterator<E> iterator(Select<E> select) 
+	public final <E extends IEntity> Iterator<E> iterator(Select<E> select) 
 			throws DatasourceException {
 		
 		return new ResultSetIterator<E>(
@@ -144,7 +144,7 @@ public class Database extends Datasource {
 		}
 	}
 
-	protected static void initialize(IRecord record, IColumn column, Object value) {
+	protected static void initialize(IEntity record, IColumn column, Object value) {
 		// TODO Auto-generated method stub
 		Datasource.initialize(record, column, value);
 	}

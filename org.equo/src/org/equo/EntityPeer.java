@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class EntityPeer<E extends IRecord> extends Peer<E> {
+public class EntityPeer<E extends IEntity> extends Peer<E> {
 	
 	private String name;
 	private Datasource ds;

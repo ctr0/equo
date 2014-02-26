@@ -1,9 +1,9 @@
 package org.equo;
 
 
-public class Delete<E extends IRecord> implements ICommand {
+public class Delete<E extends IEntity> implements ICommand {
 	
-	public static final <E extends IRecord> Delete<E> deleteFrom(Peer<E> master) {
+	public static final <E extends IEntity> Delete<E> deleteFrom(Peer<E> master) {
 		return new Delete<E>(master);
 	}
 	
@@ -32,7 +32,7 @@ public class Delete<E extends IRecord> implements ICommand {
 		// visitor.visitEnd(); TODO CommandVisitor.visitEnd ?
 	}
 	
-	public static final <E extends IRecord> Delete<E> wrap(E e) {
+	public static final <E extends IEntity> Delete<E> wrap(E e) {
 		@SuppressWarnings("unchecked")
 		Peer<E> peer = (Peer<E>) e.getPeer();
 		Delete<E> delete = new Delete<E>(peer);

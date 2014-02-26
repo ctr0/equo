@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.equo.IColumn;
-import org.equo.IRecord;
+import org.equo.IEntity;
 import org.equo.Peer;
 import org.equo.util.Iterator;
 
 
 
-public class ResultSetIterator<E extends IRecord> implements Iterator<E> {
+public class ResultSetIterator<E extends IEntity> implements Iterator<E> {
 
 	private ResultContext context;
 	

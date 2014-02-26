@@ -3,7 +3,7 @@ package org.equo;
 
 
 
-public class Condition<E extends IRecord> implements Criteria<E> {
+public class Condition<E extends IEntity> implements Criteria<E> {
 	
 	private int op;
 	private IColumn field;

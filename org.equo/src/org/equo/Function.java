@@ -1,6 +1,6 @@
 package org.equo;
 
-public class Function<E extends IRecord, T> extends Column<E, T> {
+public class Function<E extends IEntity, T> extends Column<E, T> {
 	
 	public static final int FUNC_MAX = 0;
 	public static final int FUNC_MIN = 1;

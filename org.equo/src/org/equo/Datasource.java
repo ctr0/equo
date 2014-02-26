@@ -28,16 +28,16 @@ public abstract class Datasource {
 	
 	public abstract void synchronize(ITable peer) throws DatasourceException;
 	
-	public abstract <E extends IRecord> 
+	public abstract <E extends IEntity> 
 			Iterator<E> iterator(Select<E> select) throws DatasourceException;
 	
-	public final <E extends IRecord>
+	public final <E extends IEntity>
 			List<E> select(Select<E> select) throws DatasourceException {
 		
 		return asList(iterator(select));
 	}
 
-	public static <E extends IRecord> List<E> asList(Iterator<E> iterator) throws DatasourceException {
+	public static <E extends IEntity> List<E> asList(Iterator<E> iterator) throws DatasourceException {
 		List<E> list = new ArrayList<E>(ARRAY_INITIAL_CAPACITY);
 		try {
 			while (iterator.hasNext()) {
@@ -57,11 +57,11 @@ public abstract class Datasource {
 //		return null;
 //	}
 	
-	protected static void initialize(IRecord record, IColumn column, Object value) {
+	protected static void initialize(IEntity record, IColumn column, Object value) {
 		record.initialize(column, value);
 	}
 	
-	protected static void reset(IRecord record, int column, Object value) {
+	protected static void reset(IEntity record, int column, Object value) {
 		record.initialize(column, value);
 	}
 }

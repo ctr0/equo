@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public class PeerBuilder<E extends IRecord> {
+public class PeerBuilder<E extends IEntity> {
 
 	public static PeerBuilder<Record> createPeer(Datasource ds, String name) {
 		return new PeerBuilder<Record>(ds, name, Record.class);
 	}
 	
-	public static <E extends IRecord> PeerBuilder<E> createPeer(Datasource ds, String name, Class<E> c) {
+	public static <E extends IEntity> PeerBuilder<E> createPeer(Datasource ds, String name, Class<E> c) {
 		return new PeerBuilder<E>(ds, name, c);
 	}
 	
@@ -23,28 +23,28 @@ public class PeerBuilder<E extends IRecord> {
 	}
 	
 	public <T> Column<E, T> addColumn(String name, Domain domain) {
-		Column<IRecord, Object> c = Column.createColumn(peer, new Field(peer.getName(), name, domain), columns.size());
+		Column<IEntity, Object> c = Column.createColumn(peer, new Field(peer.getName(), name, domain), columns.size());
 		this.columns.add(c);
 		return (Column<E, T>) c;
 	}
 	
 	public <T> Column<E, T> addColumn(String name, int type) {
 		Domain domain = new Domain(name, type);
-		Column<IRecord, Object> c = Column.createColumn(peer, new Field(peer.getName(), name, domain), columns.size());
+		Column<IEntity, Object> c = Column.createColumn(peer, new Field(peer.getName(), name, domain), columns.size());
 		this.columns.add(c);
 		return (Column<E, T>) c;
 	}
 	
 	public <T> Column<E, T> addColumn(String name, int type, int length) {
 		Domain domain = new Domain(name, type, length);
-		Column<IRecord, Object> c = Column.createColumn(peer, new Field(peer.getName(), name, domain), columns.size());
+		Column<IEntity, Object> c = Column.createColumn(peer, new Field(peer.getName(), name, domain), columns.size());
 		this.columns.add(c);
 		return (Column<E, T>) c;
 	}
 	
 	public <T> Column<E, T> addColumn(String name, int type, int length, int scale) {
 		Domain domain = new Domain(name, type, length, scale);
-		Column<IRecord, Object> c = Column.createColumn(peer, new Field(peer.getName(), name, domain), columns.size());
+		Column<IEntity, Object> c = Column.createColumn(peer, new Field(peer.getName(), name, domain), columns.size());
 		this.columns.add(c);
 		return (Column<E, T>) c;
 	}

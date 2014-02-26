@@ -23,7 +23,7 @@ public class Entity<E extends Entity<E>> extends AbstractEntity<E> {
 		}
 	}
 	
-	public <T> void setObject(Column<? extends IRecord, T> column, T value) {
+	public <T> void setObject(Column<? extends IEntity, T> column, T value) {
 		if (column.isForeign()) {
 			getForeign0(column.getTable()).setObject(column.getIndex(), value);
 		} else {

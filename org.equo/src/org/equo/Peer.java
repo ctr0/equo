@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 import org.equo.util.Iterator;
 
 
-public abstract class Peer<E extends IRecord> extends ITable {
+public abstract class Peer<E extends IEntity> extends ITable {
 	
 	public abstract E createEntity();
 	
@@ -22,8 +22,8 @@ public abstract class Peer<E extends IRecord> extends ITable {
 		}
 	}
 	
-	boolean refresh(IRecord entity) throws DatasourceException {
-		try (Iterator<IRecord> iterator = getDatasource().iterator(Select.wrap(entity))) {
+	boolean refresh(IEntity entity) throws DatasourceException {
+		try (Iterator<IEntity> iterator = getDatasource().iterator(Select.wrap(entity))) {
 			if (iterator.hasNext()) {
 				// Only if peer columns are inmutable
 				entity.values = iterator.next().getObjects();
@@ -35,21 +35,21 @@ public abstract class Peer<E extends IRecord> extends ITable {
 		}
 	}
 
-	boolean exists(IRecord entity) throws DatasourceException {
+	boolean exists(IEntity entity) throws DatasourceException {
 		try (Iterator<?> iterator = getDatasource().iterator(Select.wrap(entity))) {
 			return iterator.hasNext();
 		}
 	}
 
-	boolean delete(IRecord entity) throws DatasourceException {
+	boolean delete(IEntity entity) throws DatasourceException {
 		return false;
 	}
 
-	void insert(IRecord entity) throws DatasourceException {
+	void insert(IEntity entity) throws DatasourceException {
 		getDatasource().execute(Insert.wrap(entity));
 	}
 
-	boolean update(IRecord entity) throws DatasourceException {
+	boolean update(IEntity entity) throws DatasourceException {
 		return getDatasource().execute(Insert.wrap(entity)) != 0;
 	}
 

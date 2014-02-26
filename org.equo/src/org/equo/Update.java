@@ -3,9 +3,9 @@ package org.equo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Update<E extends IRecord> implements ICommand {
+public class Update<E extends IEntity> implements ICommand {
 	
-	public static final <E extends IRecord> Update<E> selectFrom(Peer<E> master) {
+	public static final <E extends IEntity> Update<E> selectFrom(Peer<E> master) {
 		return new Update<E>(master);
 	}
 	
@@ -73,7 +73,7 @@ public class Update<E extends IRecord> implements ICommand {
 		visitor.visitWhere(where);
 	}
 	
-	public static final <E extends IRecord> Update<E> wrap(E e) {
+	public static final <E extends IEntity> Update<E> wrap(E e) {
 		if (!e.isDirty()) return null;
 		@SuppressWarnings("unchecked")
 		Peer<E> peer = (Peer<E>) e.getPeer();

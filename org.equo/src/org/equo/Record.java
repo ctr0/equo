@@ -7,7 +7,7 @@ package org.equo;
  * @author j0rd1
  *
  */
-public final class Record extends IRecord {
+public final class Record extends IEntity {
 	
 	public Record(Peer<Record> peer) {
 		super(peer);
@@ -19,11 +19,11 @@ public final class Record extends IRecord {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> T getObject(Column<? extends IRecord, T> column) {
+	public <T> T getObject(Column<? extends IEntity, T> column) {
 		return (T) getObject(checkColumn(column));
 	}
 	
-	public <T> void setObject(Column<? extends IRecord, T> column, T value) {
+	public <T> void setObject(Column<? extends IEntity, T> column, T value) {
 		setObject(checkColumn(column), checkType(column, value));
 	}
 	
