@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 
-public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements IForeign  {
+public abstract class Table<E extends Entity<E>, F extends Entity<F>> extends ITable {
 
 	Table<E, ?> parent;
 	int order = -1;
@@ -17,7 +17,7 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements
 	
 	private IColumn[] keys;
 	
-	private Map<String, TableColumn<E, ?>> columns;
+	private Map<String, Column<E, ?>> columns;
 	private Map<String, Table<E, ?>> foreigns;
 	
 	public Table(Table<E, ?> parent) {
@@ -45,16 +45,12 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements
 		this.foreigns = new LinkedHashMap<>(4);
 	}
 	
-	public Table<E, ?> getParent() {
+	Table<E, ?> getParent() {
 		return parent;
 	}
 	
-	public int getIndex() {
+	int getIndex() {
 		return index;
-	}
-	
-	int getOrder() {
-		return 0; // TODO
 	}
 	
 	protected Criteria<E> getCriteria() {
@@ -85,25 +81,25 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements
 	}
 
 	@Override
-	public TableColumn<E, ?> getColumn(String alias) {
+	public Column<E, ?> getColumn(String alias) {
 		return columns.get(alias);
 	}
 	
 	@Override
 	public IColumn[] getColumns() {
-		return columns.values().toArray(new TableColumn[columns.size()]);
+		return columns.values().toArray(new Column[columns.size()]);
 	}
 
 	//@SuppressWarnings("unchecked")
-	Collection<TableColumn<E, ?>> getColumns0() {
+	Collection<Column<E, ?>> getColumns0() {
 		//return columns.values().toArray(new TableColumn[columns.size()]);
 		return columns.values();
 	}
 	
 	@SafeVarargs
-	protected final void setColumns(TableColumn<E, ?>... columns) {
-		Map<String, TableColumn<E, ?>> map = new LinkedHashMap<>(columns.length);
-		for (TableColumn<E, ?> column : columns) {
+	protected final void setColumns(Column<E, ?>... columns) {
+		Map<String, Column<E, ?>> map = new LinkedHashMap<>(columns.length);
+		for (Column<E, ?> column : columns) {
 			map.put(column.getName(), column);
 		}
 		this.columns = map;
@@ -149,7 +145,7 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> implements
 		return path;
 	}
 
-	public TableColumn<E, ?> ALL() {
+	public Column<E, ?> ALL() {
 		// All columns
 		return null;
 	}

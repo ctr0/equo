@@ -2,7 +2,7 @@ package org.equo;
 
 
 
-public class View<E extends IRecord> extends EntityPeer<E> implements IView {
+public class View<E extends IRecord> extends EntityPeer<E> {
 	
 	View(Datasource ds) {
 		super(ds, null, null);
@@ -39,7 +39,7 @@ public class View<E extends IRecord> extends EntityPeer<E> implements IView {
 		int i =0;
 		for (IColumn column : columns) {
 			Field field = column.getField();
-			columns[i] = new Column<E, Object>(column.getAlias(), field, i++);
+			columns[i] = Column.createColumn(column.getTable(), field, i++);
 		}
 		setColumns(columns);
 	}

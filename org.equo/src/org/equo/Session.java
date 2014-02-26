@@ -2,8 +2,6 @@ package org.equo;
 
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +9,8 @@ import java.util.Map;
 public abstract class Session {
 	
 	private static final Map<String, Datasource> datasources = new HashMap<String, Datasource>(4);
-	private static final Map<String, IPeer> peers = new HashMap<String, IPeer>(32);
-	private static final Map<String, IForeign> tables = new HashMap<String, IForeign>(32);
+	private static final Map<String, ITable> peers = new HashMap<String, ITable>(32);
+	private static final Map<String, Table<?, ?>> tables = new HashMap<String, Table<?, ?>>(32);
 	
 	private static final Object[] NULL_TABLE_CTOR_ARGS = new Object[] {null, null};
 	
@@ -57,8 +55,8 @@ public abstract class Session {
 		}
 	}
 	
-	public IPeer getPeer(String name) {
-		IPeer peer = peers.get(name);
+	public ITable getPeer(String name) {
+		ITable peer = peers.get(name);
 		if (peer == null) throw new IllegalArgumentException("Cannot find peer " + name);
 		return peer;
 	}
@@ -74,7 +72,7 @@ public abstract class Session {
 		if (table.getParent() != null) {
 			throw new IllegalStateException("Illegal table instance " + table);
 		}
-		IPeer peer;
+		ITable peer;
 		synchronized (peers) {
 			peer = peers.get(table.getName());
 			if (peer == null) {
@@ -128,10 +126,11 @@ public abstract class Session {
 //		throw new RuntimeException("Cannot retrieve entity class from table class " + c);
 //	}
 
-	public static final IForeign getTable(Class<? extends IForeign> c) {
-		IForeign table;
+	@SuppressWarnings("unchecked")
+	public static final <T extends Table<?, ?>> Table<?, ?> getTable(Class<T> c) {
+		T table;
 		synchronized (tables) {
-			table = tables.get(c.getSimpleName());
+			table = (T) tables.get(c.getSimpleName());
 			if (table == null) {
 				try {
 					table = c.getConstructor(Table.class, String.class).newInstance(NULL_TABLE_CTOR_ARGS);
@@ -144,9 +143,11 @@ public abstract class Session {
 		return table;
 	}
 	
-	public static final IForeign getTable(String name) {
+	@SuppressWarnings("unchecked")
+	public static final <E extends Entity<E>, F extends Entity<F>> Table<E, F> getTable(String name) {
 		synchronized (tables) {
-			return tables.get(name);
+			return (Table<E, F>) tables.get(name);
 		}
 	}
+	 
 }

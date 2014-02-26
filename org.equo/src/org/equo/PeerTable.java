@@ -12,6 +12,7 @@ public class PeerTable<E extends Entity<E>> extends Peer<E> {
 
 	// accessed only by session
 	public PeerTable(Session session, Datasource ds, Table<E, ?> table, Class<E> entity) {
+		if (table.getParent() != null) throw new IllegalStateException("Illegal table");
 		this.session = session;
 		this.ds = ds;
 		this.table = table;
@@ -27,6 +28,27 @@ public class PeerTable<E extends Entity<E>> extends Peer<E> {
 		return ds;
 	}
 	
+	@Override
+	int getIndex() {
+		return -1;
+	}
+
+	@Override
+	ITable getParent() {
+		return null;
+	}
+
+	@Override
+	String[] getForeignPath() {
+		return table.getForeignPath();
+	}
+
+	@Override
+	String getDatasourceName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	Table<E, ?> getTable() {
 		return table;
 	}
@@ -47,7 +69,7 @@ public class PeerTable<E extends Entity<E>> extends Peer<E> {
 	}
 	
 	@Override
-	public TableColumn<E, ?> getColumn(String alias) {
+	public Column<E, ?> getColumn(String alias) {
 		return table.getColumn(alias);
 	}
 	
@@ -58,9 +80,9 @@ public class PeerTable<E extends Entity<E>> extends Peer<E> {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public TableColumn<E, ?>[] getColumns() {
-		Collection<TableColumn<E, ?>> columns = table.getColumns0();
-		return columns.toArray(new TableColumn[columns.size()]);
+	public Column<E, ?>[] getColumns() {
+		Collection<Column<E, ?>> columns = table.getColumns0();
+		return columns.toArray(new Column[columns.size()]);
 	}
 
 	public Table<E, ?> getForeign(String alias) {
@@ -88,7 +110,7 @@ public class PeerTable<E extends Entity<E>> extends Peer<E> {
 	}
 	
 	@SafeVarargs
-	public final Query<E> select(TableColumn<E, ?>... columns) {
+	public final Query<E> select(Column<E, ?>... columns) {
 		return new Query<E>(this, columns);
 	}
 	

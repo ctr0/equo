@@ -10,7 +10,7 @@ import org.equo.Domain;
 import org.equo.Field;
 import org.equo.IColumn;
 import org.equo.ICriteria;
-import org.equo.IPeer;
+import org.equo.ITable;
 import org.equo.Order;
 import org.equo.Segment;
 import org.equo.Types;
@@ -65,7 +65,7 @@ public class DefaultCommandAdapter implements CommandBuilder, CommandVisitor, Cr
 //	}
 
 	@Override
-	public void visitUpdate(IPeer peer) throws DatasourceException {
+	public void visitUpdate(ITable peer) throws DatasourceException {
 		StringBuilder b = builder;
 		b.append("UPDATE ");
 		visitIdentifier(peer);
@@ -77,7 +77,7 @@ public class DefaultCommandAdapter implements CommandBuilder, CommandVisitor, Cr
 	}
 
 	@Override
-	public void visitInsert(IPeer peer, IColumn[] columns) throws DatasourceException {
+	public void visitInsert(ITable peer, IColumn[] columns) throws DatasourceException {
 		StringBuilder b = builder;
 		b.append("INSERT INTO ");
 		visitIdentifier(peer);
@@ -92,14 +92,14 @@ public class DefaultCommandAdapter implements CommandBuilder, CommandVisitor, Cr
 	}
 
 	@Override
-	public void visitFrom(IPeer peer) throws DatasourceException {
+	public void visitFrom(ITable peer) throws DatasourceException {
 		StringBuilder b = builder;
 		b.append(" FROM ");
 		visitIdentifier(peer);
 	}
 
 	@Override
-	public void visitJoin(boolean inner, IPeer left, IPeer right, ICriteria criteria) throws DatasourceException {
+	public void visitJoin(boolean inner, ITable left, ITable right, ICriteria criteria) throws DatasourceException {
 		StringBuilder b = builder;
 		b.append(inner ? " INNER" : " OUTTER");
 		b.append(" JOIN ");
@@ -238,7 +238,7 @@ public class DefaultCommandAdapter implements CommandBuilder, CommandVisitor, Cr
 		}
 	}
 	
-	protected void visitIdentifier(IPeer peer) {
+	protected void visitIdentifier(ITable peer) {
 //		builder.append('\"');
 		builder.append(peer.getName());
 //		builder.append('\"');
@@ -265,7 +265,7 @@ public class DefaultCommandAdapter implements CommandBuilder, CommandVisitor, Cr
 	}
 
 	@Override
-	public void visitCreateTable(IPeer peer) throws DatasourceException {
+	public void visitCreateTable(ITable peer) throws DatasourceException {
 		StringBuilder b = builder;
 		b.append("CREATE TABLE \"" + peer.getName() + "\" ");
 		b.append("(\n");

@@ -11,15 +11,15 @@ public interface ICommand {
 		
 		public void visitSelect(IColumn[] columns) throws DatasourceException;
 		
-		public void visitUpdate(IPeer peer) throws DatasourceException;
+		public void visitUpdate(ITable peer) throws DatasourceException;
 		
 		public void visitDelete() throws DatasourceException;
 		
-		public void visitInsert(IPeer peer, IColumn[] columns) throws DatasourceException;
+		public void visitInsert(ITable peer, IColumn[] columns) throws DatasourceException;
 		
-		public void visitFrom(IPeer peer) throws DatasourceException;
+		public void visitFrom(ITable peer) throws DatasourceException;
 		
-		public void visitJoin(boolean inner, IPeer left, IPeer right, ICriteria criteria) throws DatasourceException;
+		public void visitJoin(boolean inner, ITable left, ITable right, ICriteria criteria) throws DatasourceException;
 		
 		public void visitSets(Set[] sets) throws DatasourceException;
 		
@@ -31,7 +31,7 @@ public interface ICommand {
 
 		public void visitGroupBy(IColumn[] columns) throws DatasourceException;
 		
-		public void visitCreateTable(IPeer peer) throws DatasourceException;
+		public void visitCreateTable(ITable peer) throws DatasourceException;
 	
 	}
 	

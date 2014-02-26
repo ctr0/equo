@@ -3,7 +3,7 @@ package org.equo;
 import java.util.Arrays;
 
 @SuppressWarnings("unchecked")
-public class Entity<E extends Entity<E>> extends org.equo.AbstractEntity<E> {
+public class Entity<E extends Entity<E>> extends AbstractEntity<E> {
 	
 	private Entity<?>[] foreigns;
 
@@ -15,7 +15,7 @@ public class Entity<E extends Entity<E>> extends org.equo.AbstractEntity<E> {
 		return (PeerTable<E>) super.getPeer();
 	}
 
-	public <T> T getObject(TableColumn<E, T> column) {
+	public <T> T getObject(Column<E, T> column) {
 		if (column.isForeign()) {
 			return (T) getForeign0(column.getTable()).getObject(column.getIndex());
 		} else {
@@ -23,12 +23,20 @@ public class Entity<E extends Entity<E>> extends org.equo.AbstractEntity<E> {
 		}
 	}
 	
+	public <T> void setObject(Column<? extends IRecord, T> column, T value) {
+		if (column.isForeign()) {
+			getForeign0(column.getTable()).setObject(column.getIndex(), value);
+		} else {
+			setObject(column.getIndex(), value);
+		}
+	}
+	
 	public <F extends Entity<F>> F getForeign(Table<E, F> table) {
 		return (F) getForeign0(table);
 	}
 	
-	private Entity<?> getForeign0(IForeign table) {
-		IForeign t = table;
+	private Entity<?> getForeign0(ITable table) {
+		ITable t = table;
 		int i = 0, size = 8;
 		int[] path = new int[size];
 		do {

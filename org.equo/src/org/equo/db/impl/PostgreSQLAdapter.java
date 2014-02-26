@@ -2,7 +2,7 @@ package org.equo.db.impl;
 
 import org.equo.Field;
 import org.equo.IColumn;
-import org.equo.IPeer;
+import org.equo.ITable;
 import org.equo.db.DefaultCommandAdapter;
 
 public class PostgreSQLAdapter extends DefaultCommandAdapter {
@@ -12,7 +12,7 @@ public class PostgreSQLAdapter extends DefaultCommandAdapter {
 		return new PostgreSQLAdapter();
 	}
 
-	protected void visitIdentifier(IPeer peer) {
+	protected void visitIdentifier(ITable peer) {
 		builder.append('\"');
 		builder.append(peer.getName());
 		builder.append('\"');

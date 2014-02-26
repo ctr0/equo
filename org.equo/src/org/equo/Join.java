@@ -5,13 +5,13 @@ public class Join {
 
 	boolean inner;
 
-	IPeer left;
+	ITable left;
 
-	IPeer right;
+	ITable right;
 
 	ICriteria criteria;
 
-	public Join(boolean inner, IPeer left, IPeer right, ICriteria criteria) {
+	public Join(boolean inner, ITable left, ITable right, ICriteria criteria) {
 		this.inner = inner;
 		this.left = left;
 		this.right = right;

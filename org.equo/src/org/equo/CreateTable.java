@@ -3,9 +3,9 @@ package org.equo;
 
 public class CreateTable implements ICommand {
 	
-	private IPeer peer;
+	private ITable peer;
 
-	public CreateTable(IPeer peer) {
+	public CreateTable(ITable peer) {
 		this.peer = peer;
 	}
 

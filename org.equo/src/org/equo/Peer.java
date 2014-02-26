@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 import org.equo.util.Iterator;
 
 
-public abstract class Peer<E extends IRecord> implements IPeer {
+public abstract class Peer<E extends IRecord> extends ITable {
 	
 	public abstract E createEntity();
 	

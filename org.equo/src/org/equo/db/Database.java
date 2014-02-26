@@ -16,7 +16,7 @@ import org.equo.DatasourceException;
 import org.equo.DatasourceInfo;
 import org.equo.IColumn;
 import org.equo.ICommand;
-import org.equo.IPeer;
+import org.equo.ITable;
 import org.equo.IRecord;
 import org.equo.Select;
 import org.equo.util.Iterator;
@@ -150,7 +150,7 @@ public class Database extends Datasource {
 	}
 
 	@Override
-	public void synchronize(IPeer peer) throws DatasourceException {
+	public void synchronize(ITable peer) throws DatasourceException {
 //		Connection cn = getConnection();
 //		String schema = null;
 //		try (ResultSet rs = cn.getMetaData().getTables(null, schema, peer.getName(), null)) {

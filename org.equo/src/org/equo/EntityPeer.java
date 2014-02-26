@@ -103,5 +103,26 @@ public class EntityPeer<E extends IRecord> extends Peer<E> {
 	public Datasource getDatasource() {
 		return ds;
 	}
+
+	@Override
+	public int getIndex() {
+		return -1;
+	}
+
+	@Override
+	public ITable getParent() {
+		return null;
+	}
+
+	@Override
+	String[] getForeignPath() {
+		return null;
+	}
+
+	@Override
+	public String getDatasourceName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

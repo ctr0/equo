@@ -99,7 +99,7 @@ public final class Select<E extends IRecord> implements ICommand {
 		this.joins = joins;
 	}
 	
-	public Select<E> innerJoinOn(IPeer right, ICriteria criteria) {
+	public Select<E> innerJoinOn(ITable right, ICriteria criteria) {
 		this.joins.add(new Join(true, null, right, criteria));
 		return this;
 	}
@@ -110,7 +110,7 @@ public final class Select<E extends IRecord> implements ICommand {
 //		return this;
 //	}
 	
-	public Select<E> innerJoinOn(IPeer left, IPeer right, ICriteria criteria) {
+	public Select<E> innerJoinOn(ITable left, ITable right, ICriteria criteria) {
 		this.joins.add(new Join(true, left, right, criteria));
 		return this;
 	}
@@ -121,7 +121,7 @@ public final class Select<E extends IRecord> implements ICommand {
 //		return this;
 //	}
 	
-	public Select<E> outterJoinOn(IPeer right, ICriteria criteria) {
+	public Select<E> outterJoinOn(ITable right, ICriteria criteria) {
 		this.joins.add(new Join(true, peer, right, criteria));
 		return this;
 	}
@@ -132,7 +132,7 @@ public final class Select<E extends IRecord> implements ICommand {
 //		return this;
 //	}
 	
-	public Select<E> outterJoinOn(IPeer left, IPeer right, ICriteria criteria) {
+	public Select<E> outterJoinOn(ITable left, ITable right, ICriteria criteria) {
 		this.joins.add(new Join(false, left, right, criteria));
 		return this;
 	}

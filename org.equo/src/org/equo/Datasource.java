@@ -26,7 +26,7 @@ public abstract class Datasource {
 	
 	public abstract int execute(ICommand command) throws DatasourceException;
 	
-	public abstract void synchronize(IPeer peer) throws DatasourceException;
+	public abstract void synchronize(ITable peer) throws DatasourceException;
 	
 	public abstract <E extends IRecord> 
 			Iterator<E> iterator(Select<E> select) throws DatasourceException;

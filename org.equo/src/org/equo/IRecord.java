@@ -91,8 +91,8 @@ public abstract class IRecord {
 		return c.getIndex();
 	}
 	
-	protected static void checkColumn(IPeer peer, IColumn column) {
-		if (peer.getName() != column.getPeer()) {
+	protected static void checkColumn(ITable peer, IColumn column) {
+		if (peer != column.getTable()) {
 			throw new IllegalArgumentException("Illegal column " + column);
 		}
 	}

@@ -4,22 +4,30 @@ import org.equo.Condition.Operator;
 
 public class Column<E extends IRecord, T> implements IColumn {
 	
-	private String peer;
-	private Field field;
-	private int index;
-	
-	public Column(String peer, String name) {
-		this(peer, new Field(peer, name, Domain.VARCHAR20), -1);
+	public static <E extends IRecord, T> Column<E, T> createColumn(ITable table, Field field, int index) {
+		return new Column<>(table, field, index);
 	}
 	
-	public Column(IColumn column) {
-		this.peer = column.getPeer();
+	public static <E extends Entity<E>, T> Column<E, T> createColumn(Table<E, ?> table, String name, Domain domain, int index) {
+		return new Column<E, T>(table, new Field(table.getName(), name, domain), index);
+	}
+	
+	ITable table;
+	Field field;
+	int index;
+	
+	Column(ITable peer, String name) {
+		this(peer, new Field(peer.getName(), name, Domain.VARCHAR20), -1);
+	}
+	
+	Column(IColumn column) {
+		this.table = column.getTable();
 		this.field = column.getField();
 		this.index = column.getIndex();
 	}
 	
-	public Column(String peer, Field field, int index) {
-		this.peer = peer;
+	Column(ITable table, Field field, int index) {
+		this.table = table;
 		this.field = field;
 		this.index = index;
 	}
@@ -35,8 +43,8 @@ public class Column<E extends IRecord, T> implements IColumn {
 	}
 	
 	@Override
-	public String getPeer() {
-		return peer;
+	public ITable getTable() {
+		return table;
 	}
 
 	@Override
@@ -48,10 +56,22 @@ public class Column<E extends IRecord, T> implements IColumn {
 	public final int getIndex() {
 		return index;
 	}
+	
+	boolean isForeign() {
+		return table.getParent() != null;
+	}
 
 	@Override
 	public Column<E, T> as(String alias) {
-		return new Column<>(this); // FIXME column alias
+		return new Column<E, T>(this) {
+			
+			private String alias;
+			
+			@Override
+			public String getAlias() {
+				return alias;
+			}
+		};
 	}
 	
 	public Criteria<E> EQ(T value) {
@@ -144,24 +164,10 @@ public class Column<E extends IRecord, T> implements IColumn {
 
 	@Override
 	public String toString() {
-		StringBuilder b = new StringBuilder(getPeer());
+		StringBuilder b = new StringBuilder(getTable().getName());
 		b.append('.');
 		b.append(field);
 		return b.toString();
-	}
-	
-	static class ColumnAlias<E extends IRecord, T> extends Column<E, T> {
-		
-		private String alias;
-
-		public ColumnAlias(Column<E, T> column, String alias) {
-			super(column);
-		}
-
-		@Override
-		public String getAlias() {
-			return alias;
-		}
 	}
 	
 }

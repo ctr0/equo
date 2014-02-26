@@ -21,15 +21,15 @@ public class Query<E extends Entity<E>> {
 		select = new Select<E>(peer, columns.toArray(new IColumn[columns.size()]));
 	}
 
-	public Query(PeerTable<E> peer, TableColumn<E, ?>[] columns) {
+	public Query(PeerTable<E> peer, Column<E, ?>[] columns) {
 		Map<Field, IColumn> map = new HashMap<Field, IColumn>(columns.length);
 		Map<String, Join> joins = new LinkedHashMap<>(8);
-		for (TableColumn<E, ?> column : columns) {
+		for (Column<E, ?> column : columns) {
 			if (map.put(column.getField(), null) != null) {
 				throw new IllegalArgumentException("Duplicated column " + column);
 			}
 			if (column.isForeign()) {
-				Table<E, ?> table = column.getTable();
+				ITable table = column.getTable();
 				Table<E, ?> parent = peer.getTable();
 				String[] foreignPath = table.getForeignPath();
 				for (int i = 1; i < foreignPath.length; i++) {
@@ -86,19 +86,19 @@ public class Query<E extends Entity<E>> {
 //	}
 
 	@SafeVarargs
-	public final Query<E> groupBy(TableColumn<E, ?>... columns) {
+	public final Query<E> groupBy(Column<E, ?>... columns) {
 		select.groupBy(columns);
 		return this;
 	}
 
 	@SafeVarargs
-	public final Query<E> orderBy(TableColumn<E, ?>... columns) {
+	public final Query<E> orderBy(Column<E, ?>... columns) {
 		select.orderBy(columns);
 		return this;
 	}
 
 	@SafeVarargs
-	public final Query<E> orderBy(boolean asc, TableColumn<E, ?>... columns) {
+	public final Query<E> orderBy(boolean asc, Column<E, ?>... columns) {
 		select.orderBy(asc, columns);
 		return this;
 	}
