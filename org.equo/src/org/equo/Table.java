@@ -105,6 +105,10 @@ public abstract class Table<E extends Entity<E>, F extends Entity<F>> extends IT
 		this.columns = map;
 	}
 	
+	protected final void setKeys(Column<E, ?>... keys) {
+		this.keys = keys;
+	}
+	
 	protected final Table<E, ?> getForeign(String alias) {
 		return foreigns.get(alias);
 	}
