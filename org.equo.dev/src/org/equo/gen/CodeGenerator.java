@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.List;
 
 import org.equo.AbstractEntity;
+import org.equo.Column;
 import org.equo.Domain;
 import org.equo.Peer;
 import org.equo.PeerTable;
 import org.equo.Session;
 import org.equo.Table;
-import org.equo.TableColumn;
 import org.equo.Types;
 import org.equo.gen.model.Lookup;
 import org.equo.gen.model.MetaDatasource;
@@ -293,7 +293,7 @@ public class CodeGenerator {
 		w.writeStatm("import", Session.class.getCanonicalName());
 		w.writeStatm("import", Peer.class.getCanonicalName());
 		w.writeStatm("import", AbstractEntity.class.getCanonicalName());
-		w.writeStatm("import", TableColumn.class.getCanonicalName());
+		w.writeStatm("import", Column.class.getCanonicalName());
 		w.writeStatm("import", Table.class.getCanonicalName());
 		w.writeStatm("import", PeerTable.class.getCanonicalName());
 		w.endLine();
